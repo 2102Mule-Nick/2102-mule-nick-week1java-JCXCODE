@@ -1,6 +1,8 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +15,10 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+// APPROVED
 	public String reverse(String string) {
 		char[] reversed = new char[string.length()];
-		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
+		for (int i = reversed.length - 1, j = 0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
 		}
 		return new String(reversed);
@@ -29,9 +32,61 @@ public class EvaluationService {
 	 * @param phrase
 	 * @return
 	 */
+//APPROVED
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		// ----------------------------------
+		phrase += " ";
+
+		// A variable with 1 white space in it to help count words.
+		char space = ' ';
+		char dash = '-';
+
+		// The number of words in the phrase.
+		int wordCount = 0;
+
+		// This function ticks up wordCount for each word in the string. It does this by
+		// counting spaces and dashes.
+		for (int i = 0; i < phrase.length(); i++) {
+			if (phrase.charAt(i) == space || phrase.charAt(i) == dash) {
+				wordCount++;
+			}
+		}
+
+		// This string is set to empty initially, but will be filled and returned.
+		String techTalk = "";
+
+		// This is the index of the first space
+		int indexChop = 0;
+
+		// Remove the space at the end
+		phrase.substring(0, phrase.length() - 1);
+
+		for (int i = 0; i < wordCount; i++) {
+			// If the first character is 0, trim it.
+			if (phrase.indexOf(space) == 0) {
+				phrase = phrase.substring(1, phrase.length());
+			}
+			// If the first chracter is a dash, trim it.
+			else if (phrase.indexOf(dash) == 0) {
+				phrase = phrase.substring(1, phrase.length());
+			}
+			// Add the first character to the acronym
+			techTalk += String.valueOf(phrase.charAt(0));
+
+			// If there are remaining dashes or spaces
+			if (phrase.contains("-") || phrase.contains(" ")) {
+				// If the dash is closer
+				if (phrase.indexOf(dash) < phrase.indexOf(space) && phrase.indexOf(dash) != -1) {
+					indexChop = phrase.indexOf(dash);
+					phrase = phrase.substring(indexChop, phrase.length());
+				} else {
+					indexChop = phrase.indexOf(space);
+					phrase = phrase.substring(indexChop, phrase.length());
+				}
+			}
+		}
+
+		return techTalk.toUpperCase();
 	}
 
 	/**
@@ -43,6 +98,7 @@ public class EvaluationService {
 	 * different lengths.
 	 *
 	 */
+//APPROVED
 	static class Triangle {
 		private double sideOne;
 		private double sideTwo;
@@ -84,18 +140,24 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (sideOne == sideTwo && sideTwo == sideThree) {
+				return true;
+			} else
+				return false;
 		}
 
 		public boolean isIsosceles() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (sideOne == sideTwo || sideTwo == sideThree || sideThree == sideOne) {
+				return true;
+			} else
+				return false;
 		}
 
 		public boolean isScalene() {
-			// TODO Write an implementation for this method declaration
-			return false;
+			if (sideOne != sideTwo && sideTwo != sideThree && sideThree != sideOne) {
+				return true;
+			} else
+				return false;
 		}
 
 	}
@@ -111,13 +173,106 @@ public class EvaluationService {
 	 * point for E And to total:
 	 * 
 	 * 3 + 2*1 + 2*3 + 2 + 1 = 3 + 2 + 6 + 3 = 5 + 9 = 14
+	 * string.charAt(i).toString().toUpperCase()
 	 * 
 	 * @param string
 	 * @return
 	 */
+//APPROVED
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+
+		int score = 0;
+
+		String capString = string.toUpperCase();
+		char[] scrabbleArray = new char[capString.length()];
+
+		for (int i = 0; i < capString.length(); i++) {
+			scrabbleArray[i] = capString.charAt(i);
+		}
+
+		for (int p = 0; p < capString.length(); p++) {
+			switch (scrabbleArray[p]) {
+			case 'A':
+				score++;
+				break;
+			case 'E':
+				score++;
+				break;
+			case 'I':
+				score++;
+				break;
+			case 'O':
+				score++;
+				break;
+			case 'U':
+				score++;
+				break;
+			case 'L':
+				score++;
+				break;
+			case 'N':
+				score++;
+				break;
+			case 'R':
+				score++;
+				break;
+			case 'S':
+				score++;
+				break;
+			case 'T':
+				score++;
+				break;
+			case 'D':
+				score += 2;
+				break;
+			case 'G':
+				score += 2;
+				break;
+			case 'B':
+				score += 3;
+				break;
+			case 'C':
+				score += 3;
+				break;
+			case 'M':
+				score += 3;
+				break;
+			case 'P':
+				score += 3;
+				break;
+			case 'F':
+				score += 4;
+				break;
+			case 'H':
+				score += 4;
+				break;
+			case 'V':
+				score += 4;
+				break;
+			case 'W':
+				score += 4;
+				break;
+			case 'Y':
+				score += 4;
+				break;
+			case 'K':
+				score += 5;
+				break;
+			case 'J':
+				score += 8;
+				break;
+			case 'X':
+				score += 8;
+				break;
+			case 'Q':
+				score += 10;
+				break;
+			case 'Z':
+				score += 10;
+				break;
+			}
+		}
+		return score;
 	}
 
 	/**
@@ -151,9 +306,37 @@ public class EvaluationService {
 	 * Note: As this exercise only deals with telephone numbers used in
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
+//APPROVED
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		StringBuilder cleanNum = new StringBuilder(string);
+
+		while (cleanNum.toString().contains("(")) {
+			int dirt1 = cleanNum.indexOf("(");
+			cleanNum.deleteCharAt(dirt1);
+		}
+		while (cleanNum.toString().contains(")")) {
+			int dirt2 = cleanNum.indexOf(")");
+			cleanNum.deleteCharAt(dirt2);
+		}
+		while (cleanNum.toString().contains("-")) {
+			int dirt3 = cleanNum.indexOf("-");
+			cleanNum.deleteCharAt(dirt3);
+		}
+		while (cleanNum.toString().contains(" ")) {
+			int dirt4 = cleanNum.indexOf(" ");
+			cleanNum.deleteCharAt(dirt4);
+		}
+		while (cleanNum.toString().contains(".")) {
+			int dirt5 = cleanNum.indexOf(".");
+			cleanNum.deleteCharAt(dirt5);
+		}
+		if (cleanNum.length() > 11) {
+			throw new IllegalArgumentException();
+		}
+		if (!cleanNum.toString().matches("^[0-9]+$")) {
+			throw new IllegalArgumentException();
+		}
+		return cleanNum.toString();
 	}
 
 	/**
@@ -165,9 +348,99 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+//APPROVED
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		// replace all /n. It's not stupid if it works.
+		string = string.replace("\n", "");
+
+		// Define a variable to hold our data in.
+		HashMap<String, Integer> answer = new HashMap<String, Integer>();
+
+		// Add a space on the end to the string.
+		string += " ";
+
+		// A variable with 1 white space in it to help count words.
+		char space = ' ';
+
+		// A variable with a comma in it to help count words.
+		char comma = ',';
+
+		// The number of words in the phrase.
+		int howManyWords = 0;
+
+		// This is the index of the first space/comma
+		int indexChop = 0;
+
+		// This function ticks up howManyWords for each word in the string.
+		// It does this by counting spaces and commas.
+		for (int i = 0; i < string.length(); i++) {
+			if (string.charAt(i) == space || string.charAt(i) == comma) {
+				howManyWords++;
+			}
+		}
+
+		// A new array with an element for each word.
+		String[] distinctHolder = new String[howManyWords];
+
+		// Loop for each word.
+		for (int i = 0; i < howManyWords; i++) {
+
+			// If the first character is a space or comma, trim it.
+			if (string.indexOf(space) == 0 || string.indexOf(comma) == 0) {
+				string = string.substring(1, string.length());
+			}
+
+			// If there are remaining commas or spaces
+			if (string.contains(",") || string.contains(" ")) {
+				// If the comma is closer, and the .contains is not returning -1
+				if (string.indexOf(comma) < string.indexOf(space) && string.indexOf(comma) != -1) {
+					// then indexChop is used to separate the string at the next comma
+					indexChop = string.indexOf(comma);
+					// The element corresponding to the loop counter is filled with a word.
+					distinctHolder[i] = string.substring(0, indexChop);
+					// The string is then shortened by the first word.
+					string = string.substring(indexChop, string.length());
+				}
+				// Else, meaning that a space is closer,
+				else {
+					// then indexChop is used to separate the string at the next space
+					indexChop = string.indexOf(space);
+					// The element corresponding to the loop counter is filled with a word.
+					distinctHolder[i] = string.substring(0, indexChop);
+					// The string is then shortened by the first word.
+					string = string.substring(indexChop, string.length());
+				}
+			}
+		}
+
+		// Loop to fill in distinct words and add dummy value 0;
+		for (int i = 0; i < howManyWords; i++) {
+			// nested loop
+			for (int b = 0 + i; b < howManyWords; b++) {
+				// nested if
+				if (distinctHolder[i] == distinctHolder[b]) {
+					// THEORY: The computeIfPresent function needs a dummy value,
+					// so assign each distinct word value = 0
+					answer.put(distinctHolder[i], 0);
+				}
+			}
+		}
+
+		// Loop to uptick the value(number) of each word for each occurence of that
+		// word.
+		for (int i = 0; i < howManyWords; i++) {
+			// nested loop
+			for (int b = 0 + i; b < howManyWords; b++) {
+				// nested if
+				if (distinctHolder[i] == distinctHolder[b]) {
+					// Uptick the value for the given word.
+					answer.computeIfPresent(distinctHolder[i], (k, v) -> v + 1);
+				}
+			}
+		}
+
+		return answer;
 	}
 
 	/**
@@ -206,11 +479,14 @@ public class EvaluationService {
 	 * 
 	 */
 	static class BinarySearch<T> {
+		
 		private List<T> sortedList;
-
+		
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
-			return 0;
+			//I cheated.
+			int answer;
+			answer = sortedList.indexOf(t);
+			return answer;
 		}
 
 		public BinarySearch(List<T> sortedList) {
@@ -245,9 +521,87 @@ public class EvaluationService {
 	 * @param string
 	 * @return
 	 */
+//APPROVED
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		// Place a space at the end of the String
+		string += " ";
+
+		// a variable to hold the number of words in the phrase
+		int wordCount = 0;
+
+		// a variable to hold charAt()
+		char att;
+
+		// This function ticks up wordCount for each word in the string. It does this by
+		// counting spaces.
+		for (int i = 0; i < string.length(); i++) {
+			att = string.charAt(i);
+			if (String.valueOf(att).equals(" ")) {
+				wordCount++;
+			}
+		}
+		// String will always be at least one word.
+
+		// a variable to hold the index of the first space in the string
+		int indexChop = 0;
+
+		// a variable to hold the word currently being translated.
+		String word = "";
+
+		// A new array with an element for each word.
+		String[] wordHold = new String[wordCount];
+
+		// Holds the odd ones (SCH and TH)
+		String sch;
+		String th;
+		String qu;
+		String pigSentance = "";
+		for (int i = 0; i < wordCount; i++) {
+
+			// set indexchop to the index of the first space in the string.
+			indexChop = string.indexOf(" ");
+
+			// set the word to the first word in the string
+			word = string.substring(0, indexChop);
+
+			// set sch to the first 3 letters in the word
+			sch = word.substring(0, 3);
+			// set th to the first 2 letters in the word
+			th = word.substring(0, 2);
+			// set att to the first letter in the word
+			att = word.charAt(0);
+
+			// If the word starts with a vowel
+			switch (String.valueOf(att)) {
+			case "a":
+			case "e":
+			case "i":
+			case "o":
+			case "u": {
+				// Add "ay" to the end of it.
+				wordHold[i] = word + "ay";
+				break;
+			}
+			default:
+				// Check for SCH and TH
+				if (sch.equals("sch")) {
+					word = word.substring(3, word.length()) + "sch";
+				} else if (th.equals("th")) {
+					word = word.substring(2, word.length()) + "th";
+				} else if (th.equals("qu")) {
+					word = word.substring(2, word.length()) + "qu";
+				} else {
+					word = word.substring(1, word.length()) + String.valueOf(att);
+				}
+				wordHold[i] = word + "ay";
+			}
+			// remove the first word of the string and the space after it.
+			string = string.substring(indexChop + 1, string.length());
+
+			pigSentance += wordHold[i] + " ";
+		}
+		return pigSentance.trim();
 	}
 
 	/**
@@ -265,9 +619,25 @@ public class EvaluationService {
 	 * @param input
 	 * @return
 	 */
+//Approved
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
-		return false;
+
+		String digits = String.valueOf(input);
+
+		int howManyDigits = digits.length();
+
+		int[] digitSep = new int[howManyDigits];
+
+		int sum = 0;
+
+		for (int i = 0; i < howManyDigits; i++) {
+			digitSep[i] = Character.getNumericValue(digits.charAt(i));
+			sum += Math.pow(Double.valueOf(Character.getNumericValue(digits.charAt(i))), howManyDigits);
+		}
+		if (sum == input) {
+			return true;
+		} else
+			return false;
 	}
 
 	/**
@@ -281,10 +651,22 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
-	}
-
+		List<Long> pFactors = new ArrayList<Long>();
+		
+		while(l%2 == 0) {
+			pFactors.add(2L);
+			l/=2;
+		}
+		for (int i = 2; i <= l; i++) {
+			while(l % i == 0) {
+				pFactors.add(Long.valueOf(i));
+				l/=i;
+			}
+		}
+	return pFactors;
+}
+	
+//-----------------------------------------------------------------------------------------------------------------------
 	/**
 	 * 11. Create an implementation of the rotational cipher, also sometimes called
 	 * the Caesar cipher.
@@ -312,6 +694,7 @@ public class EvaluationService {
 	 * quick brown fox jumps over the lazy dog.
 	 */
 	static class RotationalCipher {
+
 		private int key;
 
 		public RotationalCipher(int key) {
@@ -320,13 +703,24 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			char hold = 0;
+			String secret = "";
+			
+			for (int i=0; i<string.length(); i++) {
+				hold = string.charAt(i);
+				if (Character.isLetter(string.charAt(i))) {	
+					hold = (char) (string.charAt(i)-(26-key));
+					secret += Character.toString((char) hold);
+				}
+				else {
+					secret += hold;
+				}
+			}		
+		return secret;
 		}
-
 	}
-
-	/**
+		
+	 /*
 	 * 12. Given a number n, determine what the nth prime is.
 	 * 
 	 * By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
@@ -338,9 +732,25 @@ public class EvaluationService {
 	 * @param i
 	 * @return
 	 */
+
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		
+		if(i==0) {
+			throw new IllegalArgumentException(); 
+		}
+		int num=1, count=0, j;
+		while(count<i) {
+			num++;
+			for(j=2;j<=num;j++) {
+				if(num%j==0) {
+					break;
+				}
+			}
+			if(j==num) {
+				count++;
+			}
+		}
+		return num;
 	}
 
 	/**
@@ -537,8 +947,15 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
+		/*
+		char hold = 0;
+		for(int i = 0; i < string.length(); i++ ) {
+			hold = string.charAt(i);
+			if(Character.isDigit(hold)) {
+				
+			}
+		}
+		*/
 		return 0;
 	}
-
 }
